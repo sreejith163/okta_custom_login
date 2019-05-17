@@ -37,8 +37,8 @@
     </div>
     <div class="credential-form-group">
         <label for="">Institution Name</label>
-        @Html.TextBoxFor(model => model.profile.institutionName, new { @class = "form-input", placeholder = "Enter your institution name" })
-        @Html.ValidationMessageFor(model => model.profile.institutionName)
+        @Html.TextBoxFor(model => model.profile.organization, new { @class = "form-input", placeholder = "Enter your institution name" })
+        @Html.ValidationMessageFor(model => model.profile.organization)
     </div>
     <div class="credential-form-group">
         <label for="">Institution Address</label>

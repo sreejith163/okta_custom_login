@@ -37,7 +37,7 @@ namespace okta_custom_login.Models
 
         [Display(Name = "Institution Name")]
 
-        public string institutionName { get; set; }
+        public string organization { get; set; }
 
         [DataType(DataType.MultilineText)]
         [Display(Name = "Institution Address")]
