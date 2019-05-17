@@ -1,0 +1,103 @@
+﻿@model okta_custom_login.Models.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@using (Html.BeginForm(FormMethod.Post, new { id = "loginForm" }))
+{
+    <h4 class="credential-title">Sign In</h4>
+
+    @Html.ValidationSummary(true)
+    <div class="credential-form-group">
+        @if (@Html.ValidationMessage("Error") != null)
+        {
+            @Html.ValidationMessage("Error")
+        }
+    </div>
+
+    <div class="credential-form-group">
+        <label for="">Email</label>
+        @Html.TextBoxFor(model => model.Username, new { @class = "form-input", placeholder = "Enter your email", id = "email" })
+        @Html.ValidationMessageFor(model => model.Username, "", new { id = "emailErrorMessageSpan" })
+        
+    </div>
+    <div class="credential-form-group">
+        <label for="">Password</label>
+        <span class="pw-toggle pw-show"></span>
+        @Html.PasswordFor(model => model.Password, new { @class = "form-input", placeholder = "********", id = "password" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { id = "passwordErrorMessageSpan" })
+    </div>
+    <div class="space-between">
+        @Html.ActionLink("Forgot Password", "ForgotPassword", "Account", new { key = Model.Key })
+        @Html.HiddenFor(model => model.Key)
+        @Html.HiddenFor(model => model.IsOktaSessionExists, new { id = "isExists" })
+        <input class="credential-btn" type="submit" value="Sign In" id="submitLogin" />
+    </div>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+        function httpGetSession(theUrl) {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.withCredentials = true; //Important for cross domain cookies
+            xmlHttp.send(null);
+
+            let sessionResult;
+
+            if (xmlHttp.responseText) {
+                sessionResult = JSON.parse(xmlHttp.responseText);
+                if (sessionResult.status) {
+                    if (sessionResult.status === 'ACTIVE') {
+                        $('#isExists').val(true);
+                        $('#loginForm').submit();
+                    }
+                }
+            }
+      
+
+        }
+
+        $(document).ready(function () {
+            httpGetSession('@ViewBag.OktaDomain' + '/api/v1/sessions/me');
+
+            $('.pw-toggle').click(function () {
+                if ($(this).hasClass('pw-show')) {
+                    $('#password').attr('type', 'text');
+                    $(this).removeClass('pw-show').addClass('pw-hide');
+                }
+                else {
+                    $(this).removeClass('pw-hide').addClass('pw-show');
+                    $('#password').attr('type', 'password');
+                }
+
+            });
+        });
+
+    $('#submitLogin').click(function ()
+    {
+
+        var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (!regex.test($('#email').val())) {
+            $('#emailErrorMessageSpan').attr('class', 'field-validation-error');
+            $('#emailErrorMessageSpan').text('Enter a valid email');
+            $('#emailErrorMessageSpan').show();
+            $('#email').focus();
+              return false;
+          }else{
+              return true;
+          }
+    });
+
+    $('#email').on("input", function () {
+        $('#emailErrorMessageSpan').text('');
+        $('#emailErrorMessageSpan').hide();
+    });
+
+    $('#password').on("input", function () {
+        $('#passwordErrorMessageSpan').text('');
+        $('#passwordErrorMessageSpan').hide();
+    });
+        
+</script>

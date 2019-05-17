@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h4 class="credential-title">Error</h4>
+<div class="credential-form-group">
+    @if (TempData["Message"] != null)
+    {
+        <label for="">
+            @TempData["Message"].ToString() @{TempData.Remove("Message");}
+        </label>
+    }
+</div>

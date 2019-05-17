@@ -1,0 +1,138 @@
+﻿@model okta_custom_login.Models.RegistrationModel
+
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <h4 class="credential-title">Sign Up</h4>
+
+    @Html.ValidationSummary(true)
+    <div class="credential-form-group">
+        @if (@Html.ValidationMessage("Error") != null)
+        {
+            @Html.ValidationMessage("Error")
+        }
+    </div>
+
+    <div class="credential-form-group">
+        <label for="">Email</label>
+        @Html.TextBoxFor(model => model.profile.email, new { @class = "form-input", placeholder = "Enter your email", id = "email" })
+        @Html.ValidationMessageFor(model => model.profile.email, "", new { id = "emailErrorMessageSpan" })
+    </div>
+    <div class="credential-form-group">
+        <label for="">Password</label>
+        <span class="pw-toggle pw-show"></span>
+        @Html.PasswordFor(model => model.credentials.password.value, new { @class = "form-input", placeholder = "********", id = "password" })
+        @Html.ValidationMessageFor(model => model.credentials.password.value, "", new { id = "passwordErrorMessageSpan" })
+    </div>
+    <div class="credential-form-group">
+        <label for="">Confirm Password</label>
+        @Html.PasswordFor(model => model.credentials.password.ConfirmPassword, new { @class = "form-input", placeholder = "********", id = "confirmPass" })
+        @Html.ValidationMessageFor(model => model.credentials.password.ConfirmPassword, "", new { id = "confirmPassErrorMessageSpan" })
+    </div>
+    <div class="credential-form-group">
+        <label for="">First Name</label>
+        @Html.TextBoxFor(model => model.profile.firstName, new { @class = "form-input", placeholder = "Enter your first name", id = "firstName" })
+        @Html.ValidationMessageFor(model => model.profile.firstName, "", new { id = "firstNameErrorMessageSpan" })
+    </div>
+    <div class="credential-form-group">
+        <label for="">Last Name</label>
+        @Html.TextBoxFor(model => model.profile.lastName, new { @class = "form-input", placeholder = "Enter your last name", id = "lastName" })
+        @Html.ValidationMessageFor(model => model.profile.lastName, "", new { id = "lastNameErrorMessageSpan" })
+    </div>
+    <div class="credential-form-group">
+        <label for="">Phone Number</label>
+        @Html.TextBoxFor(model => model.profile.primaryPhone, new { @class = "form-input", placeholder = "Enter your phone number", id = "primaryPhone" })
+        @Html.ValidationMessageFor(model => model.profile.primaryPhone, "", new { id = "primaryPhoneErrorMessageSpan" })
+    </div>
+    <div class="credential-form-group">
+        <label for="">Institution Name</label>
+        @Html.TextBoxFor(model => model.profile.institutionName, new { @class = "form-input", placeholder = "Enter the institution name" })
+    </div>
+
+    <div class="credential-form-group">
+        <label for="">Institution Address</label>
+        @Html.TextAreaFor(model => model.profile.institutionAddress, new { @class = "form-textarea", placeholder = "Enter the institution address" })
+    </div>
+
+    <div class="credential-form-group">
+        <label for="">Department</label>
+        @Html.TextBoxFor(model => model.profile.department, new { @class = "form-input", placeholder = "Enter the department" })
+    </div>
+
+    <div class="space-between">
+        @Html.ActionLink("Sign In", "Login", "Account", new { key = Model.Key })
+        @Html.HiddenFor(model => model.Key)
+        <input class="credential-btn" type="submit" value="Sign Up" id="sumbitSignUp" />
+    </div>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.pw-toggle').click(function () {
+            if ($(this).hasClass('pw-show')) {
+                $('#password').attr('type', 'text');
+                $(this).removeClass('pw-show').addClass('pw-hide');
+            }
+            else {
+                $(this).removeClass('pw-hide').addClass('pw-show');
+                $('#password').attr('type', 'password');
+            }
+
+        });
+    });
+
+
+    $('#sumbitSignUp').click(function ()
+    {
+
+        var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (!regex.test($('#email').val())) {
+            $('#emailErrorMessageSpan').attr('class', 'field-validation-error');
+            $('#emailErrorMessageSpan').text('Enter a valid email');
+            $('#emailErrorMessageSpan').show();
+            $('#email').focus();
+              return false;
+          }else{
+              return true;
+          }
+    });
+
+    $('#email').on("input", function () {
+        $('#emailErrorMessageSpan').text('');
+        $('#emailErrorMessageSpan').hide();
+    });
+
+    $('#password').on("input", function () {
+        $('#passwordErrorMessageSpan').text('');
+        $('#passwordErrorMessageSpan').hide();
+    });
+
+     $('#confirmPass').on("input", function () {
+        $('#confirmPassErrorMessageSpan').text('');
+        $('#confirmPassErrorMessageSpan').hide();
+     });
+
+    $('#firstName').on("input", function () {
+        $('#firstNameErrorMessageSpan').text('');
+        $('#firstNameErrorMessageSpan').hide();
+    });
+
+    $('#lastName').on("input", function () {
+        $('#lastNameErrorMessageSpan').text('');
+        $('#lastNameErrorMessageSpan').hide();
+    });
+
+    $('#primaryPhone').on("input", function () {
+        $('#primaryPhoneErrorMessageSpan').text('');
+        $('#primaryPhoneErrorMessageSpan').hide();
+    });
+
+
+
+</script>
