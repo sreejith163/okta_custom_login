@@ -197,7 +197,7 @@ namespace ACRLoginPortal.Controllers
 
                     try
                     {
-                        var resetPasswordLink = $"{Request.Scheme}://{Request.Host}/Account/ResetPassword?token={token}&key={reactivation.Key}";
+                        var resetPasswordLink = $"{Request.Scheme}://{Request.Host}/ACRLoginPortal/Account/ResetPassword?token={token}&key={reactivation.Key}";
                         //Body = $"Please click the link to reset password.<a href='{Request.Scheme}://{Request.Host}/Account/ResetPassword?token={token}&key={reactivation.Key}'> Click here </a>",
                         EmailService.SendEmail(new EmailModel
                         {
@@ -345,7 +345,7 @@ namespace ACRLoginPortal.Controllers
                             var token = jobj["activationToken"].Value<string>().ToString();
                             try
                             {
-                                var resetPasswordLink = $"{Request.Scheme}://{Request.Host}/Account/ResetPassword?token={token}&key={reactivation.Key}";
+                                var resetPasswordLink = $"{Request.Scheme}://{Request.Host}/ACRLoginPortal/Account/ResetPassword?token={token}&key={reactivation.Key}";
                                 //Body = $"Please click the link to reset password.<a href='{Request.Scheme}://{Request.Host}/Account/ResetPassword?token={token}&key={reactivation.Key}'> Click here </a>",
                                 EmailService.SendEmail(new EmailModel
                                 {

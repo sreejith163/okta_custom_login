@@ -66,7 +66,7 @@ namespace ACRLoginPortal.Controllers
                 if(result.IsSuccessStatusCode)
                 {
                     var user = oktaHelper.GetJsonObject(result);
-                    var activationLink = $"{Request.Scheme}://{Request.Host}/Account/Activate?userID={user["id"].Value<string>()}&key={register.Key}";
+                    var activationLink = $"{Request.Scheme}://{Request.Host}/ACRLoginPortal/Account/Activate?userID={user["id"].Value<string>()}&key={register.Key}";
                     //Body = $"<p>Hi {register.profile.firstName},<br/><br/>Welcome to American College of Radiology!<br/><br/>To verify your email address and activate your account,please click the following link: <br/> <a href = \"{Request.Scheme}://{Request.Host}/Account/Activate?userID={user["id"].Value<string>()}&key={register.Key}\">Activate Account</a></p>",
                     EmailModel email = new EmailModel
                     {
