@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACRLoginPortal", "ACRLoginPortal\ACRLoginPortal.csproj", "{D9B8D953-DB40-4315-9A69-DCE52C230BFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9B8D953-DB40-4315-9A69-DCE52C230BFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9B8D953-DB40-4315-9A69-DCE52C230BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9B8D953-DB40-4315-9A69-DCE52C230BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9B8D953-DB40-4315-9A69-DCE52C230BFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DCF4AC1-9CE1-4668-AD24-46F21777C66A}
+	EndGlobalSection
+EndGlobal

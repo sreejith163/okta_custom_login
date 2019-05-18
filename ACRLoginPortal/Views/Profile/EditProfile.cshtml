@@ -1,0 +1,69 @@
+﻿@model ACRLoginPortal.Models.OktaUserModel
+
+@{
+    ViewData["Title"] = "EditProfile";
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <h4 class="credential-title">Edit Profile</h4>
+    @Html.ValidationSummary(true)
+    <div class="credential-form-group">
+        @if (@Html.ValidationMessage("Error") != null)
+        {
+            @Html.ValidationMessage("Error")
+        }
+    </div>
+    <div class="credential-form-group">
+        <label for="">Email</label>
+        @Html.TextBoxFor(model => model.profile.email, new { @class = "form-input", placeholder = "Enter your email", @readonly = "readonly" })
+        @Html.ValidationMessageFor(model => model.profile.email)
+    </div>
+    <div class="credential-form-group">
+        <label for="">First Name</label>
+        @Html.TextBoxFor(model => model.profile.firstName, new { @class = "form-input", placeholder = "Enter your first name", @readonly = "readonly" })
+        @Html.ValidationMessageFor(model => model.profile.firstName)
+    </div>
+    <div class="credential-form-group">
+        <label for="">Last Name</label>
+        @Html.TextBoxFor(model => model.profile.lastName, new { @class = "form-input", placeholder = "Enter your last name", @readonly = "readonly" })
+        @Html.ValidationMessageFor(model => model.profile.lastName)
+    </div>
+    <div class="credential-form-group">
+        <label for="">Phone Number</label>
+        @Html.TextBoxFor(model => model.profile.primaryPhone, new { @class = "form-input", placeholder = "Enter your phone number", id = "primaryPhone" })
+        @Html.ValidationMessageFor(model => model.profile.primaryPhone, "", new { id = "primaryPhoneErrorMessageSpan" })
+    </div>
+    <div class="credential-form-group">
+        <label for="">Institution Name</label>
+        @Html.TextBoxFor(model => model.profile.organization, new { @class = "form-input", placeholder = "Enter your institution name" })
+        @Html.ValidationMessageFor(model => model.profile.organization)
+    </div>
+    <div class="credential-form-group">
+        <label for="">Institution Address</label>
+        @Html.TextAreaFor(model => model.profile.institutionAddress, new { @class = "form-textarea", placeholder = "Enter the your institution address" })
+        @Html.ValidationMessageFor(model => model.profile.institutionAddress)
+    </div>
+    <div class="credential-form-group">
+        <label for="">Department</label>
+        @Html.TextBoxFor(model => model.profile.department, new { @class = "form-input", placeholder = "Enter the your department" })
+        @Html.ValidationMessageFor(model => model.profile.department)
+    </div>
+    <div class="space-between">
+        @Html.ActionLink("Back to Application", "BackToApp", "Profile", new { key = Model.Key })
+        @Html.HiddenFor(model => model.Key)
+        @Html.HiddenFor(model => model.profile.login)
+        <input class="credential-btn" type="submit" value="Save Profile" />
+    </div>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+    $('#primaryPhone').on("input", function () {
+        $('#primaryPhoneErrorMessageSpan').text('');
+        $('#primaryPhoneErrorMessageSpan').hide();
+    });
+
+</script>
